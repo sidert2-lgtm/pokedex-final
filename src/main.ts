@@ -1,4 +1,7 @@
 import './index.css';
+import pokemonNameMapImport from './pokemon-names.json';
+
+const pokemonNameMap: Record<string, number> = pokemonNameMapImport;
 
 interface PokemonData {
   name: string;
@@ -156,38 +159,19 @@ const searchInput = document.getElementById('pokemon-search') as HTMLInputElemen
 const searchBtn = document.getElementById('search-btn') as HTMLButtonElement;
 const container = document.getElementById('pokemon-card-container') as HTMLElement;
 
-let pokemonNameMap: Record<string, number> = {};
-let isDataLoaded = false;
-
-async function loadPokemonNames() {
-  try {
-    const response = await fetch('/src/pokemon-names.json');
-    if (response.ok) {
-      pokemonNameMap = await response.json();
-      isDataLoaded = true;
-      console.log('포켓몬 한국어 이름 데이터가 로드되었습니다.');
-    }
-  } catch (e) {
-    console.error('포켓몬 이름 데이터를 로드하는 데 실패했습니다.', e);
-  }
-}
-
-// 초기 데이터 로드
-loadPokemonNames();
+// 초기 데이터 로드 (JSON import로 대체됨)
 
 async function fetchPokemon(query: string) {
   try {
-    if (!isDataLoaded && Object.keys(pokemonNameMap).length === 0) {
-      await loadPokemonNames();
-    }
-
     container.innerHTML = '<div class="welcome-msg"><p>포켓몬 데이터를 불러오는 중...</p></div>';
 
-    let searchQuery = query.toLowerCase();
+    // 입력값 정규화 (NFC) 및 공백 제거
+    const normalizedQuery = query.trim().normalize('NFC');
+    let searchQuery = normalizedQuery.toLowerCase();
 
     // 한국어 검색어 처리 (매핑 테이블에 있으면 ID로 변환)
-    if (pokemonNameMap[query]) {
-      searchQuery = pokemonNameMap[query].toString();
+    if (pokemonNameMap[normalizedQuery]) {
+      searchQuery = pokemonNameMap[normalizedQuery].toString();
     }
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchQuery}`);
