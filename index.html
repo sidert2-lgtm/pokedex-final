@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokéDex - 실시간 포켓몬 검색</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1 class="logo">Poké<span>Dex</span></h1>
+        <div class="search-container">
+          <input type="text" id="pokemon-search" placeholder="포켓몬 이름이나 번호를 입력하세요 (예: pikachu, 25)" />
+          <button id="search-btn">검색</button>
+        </div>
+      </header>
+      <main id="pokemon-card-container">
+        <!-- 포켓몬 정보가 여기에 렌더링됩니다 -->
+        <div class="welcome-msg">
+          <p>궁금한 포켓몬의 이름을 검색해보세요!</p>
+        </div>
+      </main>
+      <footer>
+        <p>&copy; 2026 PokéDex. Powered by PokeAPI.</p>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
